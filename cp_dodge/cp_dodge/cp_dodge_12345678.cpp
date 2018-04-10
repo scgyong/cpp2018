@@ -1,18 +1,32 @@
 #include <SFML/Graphics.hpp>
 #define WINDOW_WIDTH 800
 #define WINDOW_HIGHT 600
-class Player
-{
+
+class GameObject {
+protected:
 	sf::Texture texture;
 	sf::Sprite sprite;
 	sf::Vector2u size;
 public:
-	Player()
-	{
-		texture.loadFromFile("images/player.png");
+	GameObject(const char *filename) {
+		texture.loadFromFile(filename);
 		sprite.setTexture(texture);
 		size = texture.getSize();
-		//dx = 1;
+	}
+
+	void move() {}
+
+	void draw(sf::RenderWindow &window)
+	{
+		window.draw(sprite);
+	}
+};
+
+class Player : public GameObject
+{
+public:
+	Player() : GameObject("images/player.png")
+	{
 	}
 	void move()
 	{
@@ -38,33 +52,18 @@ public:
 				sprite.move(0, 1);
 		}
 	}
-	void draw(sf::RenderWindow &window)
-	{
-		window.draw(sprite);
-	}
 };
 
-class Bullet {
-	sf::Texture texture;
-	sf::Sprite sprite;
-	sf::Vector2u size;
+class Bullet : public GameObject {
 public:
-	Bullet()
+	Bullet() : GameObject("images/missile.png")
 	{
-		texture.loadFromFile("images/missile.png");
-		sprite.setTexture(texture);
-		size = texture.getSize();
 	}
 	void move() {
 		auto pos = sprite.getPosition();
 		if (pos.x < WINDOW_WIDTH) {
 			sprite.move(1, 1);
 		}
-	}
-
-	void draw(sf::RenderWindow &window)
-	{
-		window.draw(sprite);
 	}
 };
 
