@@ -86,10 +86,6 @@ void main()
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
-		/*playerSprite.move(dx, 0);
-		sf::Vector2f pos = playerSprite.getPosition();
-		if (pos.x > 800) { dx = -1; }
-		else if (pos.x < 0) { dx = 1; }*/
 
 		player.move();
 		bullet.move();
