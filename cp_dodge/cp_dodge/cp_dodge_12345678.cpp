@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
-#define BULLET_COUNT 50
+#define BULLET_COUNT 20
 
 class GameObject {
 protected:
@@ -22,6 +22,24 @@ public:
 	void draw(sf::RenderWindow &window)
 	{
 		window.draw(sprite);
+	}
+
+	sf::Vector2f getCenter() {
+		sf::Vector2f center = sprite.getPosition();
+		center.x += (int)size.x / 2;
+		center.y += (int)size.y / 2;
+		return center;
+	}
+	bool collides(GameObject &other) {
+		auto pos1 = getCenter();
+		auto pos2 = other.getCenter();
+		double dx = pos1.x - pos2.x;
+		double dy = pos1.y - pos2.y;
+
+		double sq_distance = dx * dx + dy * dy;
+		double threshould = size.x / 2 + other.size.x / 2;
+
+		return sq_distance < (threshould * threshould);
 	}
 };
 
@@ -128,6 +146,12 @@ void main()
 		player.move();
 		for (auto &b : bullets) {
 			b.move();
+		}
+
+		for (auto &b : bullets) {
+			if (player.collides(b)) {
+				b.init();
+			}
 		}
 
 		window.clear();
