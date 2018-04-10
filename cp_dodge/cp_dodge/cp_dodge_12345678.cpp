@@ -61,6 +61,9 @@ class Bullet : public GameObject {
 public:
 	Bullet() : GameObject("images/missile.png")
 	{
+		init();
+	}
+	void init() {
 		float x = rand() % WINDOW_WIDTH;
 		float y = rand() % WINDOW_HEIGHT;
 		sprite.setPosition(x, y);
@@ -70,6 +73,14 @@ public:
 	}
 	void move() {
 		sprite.move(dx, dy);
+		auto pos = sprite.getPosition();
+		if ((pos.x < 0 - (int)size.x) ||
+			(pos.y < 0 - (int)size.y) ||
+			(pos.x > WINDOW_WIDTH) ||
+			(pos.y > WINDOW_HEIGHT))
+		{
+			init();
+		}
 	}
 };
 
