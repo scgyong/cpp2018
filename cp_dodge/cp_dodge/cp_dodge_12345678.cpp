@@ -1,6 +1,8 @@
+#include <stdlib.h>
+#include <time.h>
 #include <SFML/Graphics.hpp>
 #define WINDOW_WIDTH 800
-#define WINDOW_HIGHT 600
+#define WINDOW_HEIGHT 600
 
 class GameObject {
 protected:
@@ -48,7 +50,7 @@ public:
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		{
-			if (pos.y<WINDOW_HIGHT - size.y)
+			if (pos.y<WINDOW_HEIGHT - size.y)
 				sprite.move(0, 1);
 		}
 	}
@@ -58,6 +60,9 @@ class Bullet : public GameObject {
 public:
 	Bullet() : GameObject("images/missile.png")
 	{
+		float x = rand() % WINDOW_WIDTH;
+		float y = rand() % WINDOW_HEIGHT;
+		sprite.setPosition(x, y);
 	}
 	void move() {
 		auto pos = sprite.getPosition();
@@ -69,12 +74,12 @@ public:
 
 void main()
 {
-	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HIGHT), "Dodge Game");
+	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Dodge Game");
 
 	GameObject bg("images/background.png");
 
 	Player player;
-	Bullet bullet;
+	Bullet bullets[100];
 
 	int dx = 1;
 
@@ -88,13 +93,17 @@ void main()
 		}
 
 		player.move();
-		bullet.move();
+		for (auto &b : bullets) {
+			b.move();
+		}
 
 		window.clear();
 
 		bg.draw(window);
 		player.draw(window);
-		bullet.draw(window);
+		for (auto &b : bullets) {
+			b.draw(window);
+		}
 
 		window.display();
 	}
