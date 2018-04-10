@@ -6,7 +6,6 @@ class Player
 	sf::Texture texture;
 	sf::Sprite sprite;
 	sf::Vector2u size;
-	//int dx;
 public:
 	Player()
 	{
@@ -45,6 +44,30 @@ public:
 	}
 };
 
+class Bullet {
+	sf::Texture texture;
+	sf::Sprite sprite;
+	sf::Vector2u size;
+public:
+	Bullet()
+	{
+		texture.loadFromFile("images/missile.png");
+		sprite.setTexture(texture);
+		size = texture.getSize();
+	}
+	void move() {
+		auto pos = sprite.getPosition();
+		if (pos.x < WINDOW_WIDTH) {
+			sprite.move(1, 1);
+		}
+	}
+
+	void draw(sf::RenderWindow &window)
+	{
+		window.draw(sprite);
+	}
+};
+
 void main()
 {
 	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HIGHT), "Dodge Game");
@@ -54,18 +77,8 @@ void main()
 	sf::Sprite bgSprite;
 	bgSprite.setTexture(bgTexture);
 
-	//sf::Texture playerTexture;
-	//playerTexture.loadFromFile("images/player.png");
-
-	//sf::Sprite playerSprite;
-	//playerSprite.setTexture(playerTexture);
-
-	sf::Texture bulletTexture;
-	bulletTexture.loadFromFile("images/missile.png");
-	sf::Sprite bulletSprite;
-	bulletSprite.setTexture(bulletTexture);
-
 	Player player;
+	Bullet bullet;
 
 	int dx = 1;
 
@@ -83,12 +96,13 @@ void main()
 		else if (pos.x < 0) { dx = 1; }*/
 
 		player.move();
+		bullet.move();
 
 		window.clear();
 		window.draw(bgSprite);
 		//window.draw(playerSprite);
 		player.draw(window);
-		window.draw(bulletSprite);
+		bullet.draw(window);
 		window.display();
 	}
 }
