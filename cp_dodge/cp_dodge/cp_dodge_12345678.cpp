@@ -57,23 +57,26 @@ public:
 };
 
 class Bullet : public GameObject {
+	float dx, dy;
 public:
 	Bullet() : GameObject("images/missile.png")
 	{
 		float x = rand() % WINDOW_WIDTH;
 		float y = rand() % WINDOW_HEIGHT;
 		sprite.setPosition(x, y);
+
+		dx = (rand() % 2000 / 1000.0) - 1.0;
+		dy = (rand() % 2000 / 1000.0) - 1.0;
 	}
 	void move() {
-		auto pos = sprite.getPosition();
-		if (pos.x < WINDOW_WIDTH) {
-			sprite.move(1, 1);
-		}
+		sprite.move(dx, dy);
 	}
 };
 
 void main()
 {
+	srand((unsigned)time(NULL));
+
 	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Dodge Game");
 
 	GameObject bg("images/background.png");
