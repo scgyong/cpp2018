@@ -64,8 +64,26 @@ public:
 		init();
 	}
 	void init() {
-		float x = rand() % WINDOW_WIDTH;
-		float y = rand() % WINDOW_HEIGHT;
+		float x, y;
+		int v = rand() % 4;
+		switch (v) {
+		case 0: //상단
+			x = rand() % WINDOW_WIDTH;
+			y = -size.y / 2;
+			break;
+		case 1: //하단
+			x = rand() % WINDOW_WIDTH;
+			y = WINDOW_HEIGHT - size.y / 2;
+			break;
+		case 2: //좌측
+			x = -size.x / 2;
+			y = rand() % WINDOW_HEIGHT;
+			break;
+		case 3: //우측
+			x = WINDOW_WIDTH - size.x / 2;
+			y = rand() % WINDOW_HEIGHT;
+			break;
+		}
 		sprite.setPosition(x, y);
 
 		dx = (rand() % 2000 / 1000.0) - 1.0;
