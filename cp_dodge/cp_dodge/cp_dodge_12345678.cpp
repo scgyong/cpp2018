@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
+#define BULLET_COUNT 50
 
 class GameObject {
 protected:
@@ -69,18 +70,18 @@ public:
 		switch (v) {
 		case 0: //상단
 			x = rand() % WINDOW_WIDTH;
-			y = -size.y / 2;
+			y = -(int)size.y / 2;
 			break;
 		case 1: //하단
 			x = rand() % WINDOW_WIDTH;
-			y = WINDOW_HEIGHT - size.y / 2;
+			y = WINDOW_HEIGHT - (int)size.y / 2;
 			break;
 		case 2: //좌측
-			x = -size.x / 2;
+			x = -(int)size.x / 2;
 			y = rand() % WINDOW_HEIGHT;
 			break;
 		case 3: //우측
-			x = WINDOW_WIDTH - size.x / 2;
+			x = WINDOW_WIDTH - (int)size.x / 2;
 			y = rand() % WINDOW_HEIGHT;
 			break;
 		}
@@ -111,7 +112,7 @@ void main()
 	GameObject bg("images/background.png");
 
 	Player player;
-	Bullet bullets[100];
+	Bullet bullets[BULLET_COUNT];
 
 	int dx = 1;
 
