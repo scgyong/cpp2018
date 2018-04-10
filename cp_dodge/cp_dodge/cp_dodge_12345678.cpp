@@ -1,14 +1,14 @@
 #include <SFML/Graphics.hpp>
 #define WINDOW_WIDTH 800
 #define WINDOW_HIGHT 600
-class player
+class Player
 {
 	sf::Texture texture;
 	sf::Sprite sprite;
 	sf::Vector2u size;
 	//int dx;
 public:
-	player()
+	Player()
 	{
 		texture.loadFromFile("images/player.png");
 		sprite.setTexture(texture);
@@ -60,8 +60,12 @@ void main()
 	//sf::Sprite playerSprite;
 	//playerSprite.setTexture(playerTexture);
 
+	sf::Texture bulletTexture;
+	bulletTexture.loadFromFile("images/missile.png");
+	sf::Sprite bulletSprite;
+	bulletSprite.setTexture(bulletTexture);
 
-	player player;
+	Player player;
 
 	int dx = 1;
 
@@ -84,6 +88,7 @@ void main()
 		window.draw(bgSprite);
 		//window.draw(playerSprite);
 		player.draw(window);
+		window.draw(bulletSprite);
 		window.display();
 	}
 }
