@@ -71,10 +71,7 @@ void main()
 {
 	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HIGHT), "Dodge Game");
 
-	sf::Texture bgTexture;
-	bgTexture.loadFromFile("images/background.png");
-	sf::Sprite bgSprite;
-	bgSprite.setTexture(bgTexture);
+	GameObject bg("images/background.png");
 
 	Player player;
 	Bullet bullet;
@@ -98,10 +95,11 @@ void main()
 		bullet.move();
 
 		window.clear();
-		window.draw(bgSprite);
-		//window.draw(playerSprite);
+
+		bg.draw(window);
 		player.draw(window);
 		bullet.draw(window);
+
 		window.display();
 	}
 }
