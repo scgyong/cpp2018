@@ -6,6 +6,8 @@ public:
 	virtual ~Sprite();
 	virtual void draw();
 
+	friend class Board;
+
 protected:
 	int x, y; // current location
 	char shape;

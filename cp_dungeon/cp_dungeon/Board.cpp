@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Board.h"
+#include "Sprite.h"
 
 using namespace std;
 
@@ -42,4 +43,9 @@ void Board::set(int x, int y, char shape)
 		return;
 	}
 	board[y][x] = shape;
+}
+
+void Board::set(Sprite & sprite)
+{
+	set(sprite.x, sprite.y, sprite.shape);
 }

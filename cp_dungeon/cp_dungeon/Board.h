@@ -3,6 +3,8 @@
 #define BOARD_WIDTH  40
 #define BOARD_HEIGHT 20
 
+class Sprite;
+
 class Board
 {
 	char board[BOARD_HEIGHT][BOARD_WIDTH];
@@ -13,5 +15,6 @@ public:
 	void print();
 	void clear();
 	void set(int x, int y, char shape);
+	void set(Sprite &sprite);
 };
 
