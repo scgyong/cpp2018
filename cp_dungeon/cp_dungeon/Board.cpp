@@ -49,3 +49,4 @@ void Board::set(Sprite & sprite)
 {
 	set(sprite.x, sprite.y, sprite.shape);
 }
+

@@ -6,5 +6,7 @@ class Hero :
 public:
 	Hero(int x, int y);
 	virtual ~Hero();
+
+	void move(int key);
 };
 

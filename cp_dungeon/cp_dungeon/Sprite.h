@@ -6,6 +6,8 @@ public:
 	virtual ~Sprite();
 	virtual void draw();
 
+	virtual void move(int key);
+
 	friend class Board;
 
 protected:

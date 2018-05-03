@@ -18,3 +18,8 @@ void Sprite::draw()
 {
 	cout << shape;
 }
+
+void Sprite::move(int key)
+{
+	// do nothing.
+}

@@ -16,5 +16,6 @@ public:
 	void clear();
 	void set(int x, int y, char shape);
 	void set(Sprite &sprite);
+
 };
 

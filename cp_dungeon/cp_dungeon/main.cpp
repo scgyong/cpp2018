@@ -33,6 +33,10 @@ int main(void)
 		if (key == 'q') {
 			break;
 		}
+
+		for (auto &e : list) {
+			e->move(key);
+		}
 	}
 
 	for (auto &e : list) {
