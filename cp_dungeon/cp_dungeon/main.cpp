@@ -35,7 +35,11 @@ int main(void)
 		}
 
 		for (auto &e : list) {
-			e->move(key);
+			try {
+				e->move(key);
+			} catch (int) {
+				//
+			}
 		}
 	}
 
