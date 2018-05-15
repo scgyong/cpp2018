@@ -1,9 +1,11 @@
 #include <SFML/Graphics.hpp>
+#include "GameScene.h"
 
 using namespace sf;
 
 int main(void)
 {
+	GameScene scene;
 	RenderWindow window(VideoMode(800, 600), "Bricks");
 	window.setFramerateLimit(60);
 	while (window.isOpen()) {
@@ -13,6 +15,7 @@ int main(void)
 				window.close();
 			}
 		}
+		scene.draw(window);
 		window.display();
 	}
 	return 0;
