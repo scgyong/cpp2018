@@ -3,10 +3,11 @@
 
 #define BALL_SPEED_DX 5.0
 #define BALL_SPEED_DY 5.0
+#define BALL_RADIUS 12.0
 
 
 Ball::Ball(float x, float y) : 
-	CircleShape(12.0),
+	CircleShape(BALL_RADIUS),
 	speed(BALL_SPEED_DX, BALL_SPEED_DY)
 {
 	setPosition(x, y);
@@ -25,13 +26,13 @@ void Ball::update()
 	auto pos = getPosition();
 	if (pos.x < 0) {
 		speed.x = abs(speed.x);
-	} else if (pos.x > WINDOW_WIDTH) {
+	} else if (pos.x > WINDOW_WIDTH - 2 * BALL_RADIUS) {
 		speed.x = -abs(speed.x);
 	}
 
 	if (pos.y < 0) {
 		speed.y = abs(speed.y);
-	} else if (pos.y > WINDOW_HEIGHT) {
+	} else if (pos.y > WINDOW_HEIGHT - 2 * BALL_RADIUS) {
 		speed.y = -abs(speed.y);
 	}
 }
