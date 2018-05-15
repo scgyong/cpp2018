@@ -5,11 +5,11 @@
 class GameScene :
 	public Scene
 {
+	Ball ball;
+
 public:
 	GameScene();
 	virtual ~GameScene();
-
-	Ball ball;
 
 	virtual void update();
 	virtual void draw(RenderWindow &window);
