@@ -5,7 +5,8 @@ using namespace sf;
 
 int main(void)
 {
-	GameScene scene;
+	//GameScene scene;
+	Scene *scene = new GameScene();
 	RenderWindow window(VideoMode(800, 600), "Bricks");
 	window.setFramerateLimit(60);
 	while (window.isOpen()) {
@@ -15,9 +16,13 @@ int main(void)
 				window.close();
 			}
 		}
-		scene.draw(window);
+		scene->update();
+		scene->draw(window);
 		window.display();
 	}
+
+	delete scene;
+
 	return 0;
 }
 

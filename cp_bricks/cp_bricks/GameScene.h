@@ -8,6 +8,7 @@ public:
 	GameScene();
 	virtual ~GameScene();
 
+	virtual void update();
 	virtual void draw(RenderWindow &window);
 };
 

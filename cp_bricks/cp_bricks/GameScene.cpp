@@ -12,6 +12,11 @@ GameScene::~GameScene()
 {
 }
 
+void GameScene::update()
+{
+}
+
 void GameScene::draw(RenderWindow &window)
 {
+	window.clear(Color::Blue);
 }
