@@ -29,7 +29,7 @@ GameScene::~GameScene()
 
 void GameScene::update()
 {
-	Vector2i mousePos = Mouse::getPosition();
+	Vector2i mousePos = Mouse::getPosition(window);
 	paddle.update((float)mousePos.x);
 	ball.update();
 }
