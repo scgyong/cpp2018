@@ -2,7 +2,7 @@
 
 
 
-Scene::Scene()
+Scene::Scene(RenderWindow &window) : window{ window }
 {
 }
 

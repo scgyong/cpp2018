@@ -7,10 +7,10 @@ using namespace sf;
 int main(void)
 {
 	//GameScene scene;
-	Scene *scene = new GameScene();
 	RenderWindow window(
 		VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT),
 		"Bricks");
+	Scene *scene = new GameScene(window);
 	window.setFramerateLimit(60);
 	while (window.isOpen()) {
 		Event event;
@@ -20,7 +20,7 @@ int main(void)
 			}
 		}
 		scene->update();
-		scene->draw(window);
+		scene->draw();
 		window.display();
 	}
 

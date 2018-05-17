@@ -14,10 +14,10 @@ class GameScene :
 	vector<Brick> bricks;
 
 public:
-	GameScene();
+	GameScene(RenderWindow &window);
 	virtual ~GameScene();
 
 	virtual void update();
-	virtual void draw(RenderWindow &window);
+	virtual void draw();
 };
 

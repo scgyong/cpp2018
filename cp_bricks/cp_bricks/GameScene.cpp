@@ -6,7 +6,8 @@
 
 using namespace sf;
 
-GameScene::GameScene() :
+GameScene::GameScene(RenderWindow &window) :
+	Scene(window),
 	ball(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2),
 	paddle(WINDOW_WIDTH / 2, WINDOW_HEIGHT - PADDLE_Y_OFFSET)
 {
@@ -28,10 +29,12 @@ GameScene::~GameScene()
 
 void GameScene::update()
 {
+	Vector2i mousePos = Mouse::getPosition();
+	paddle.update((float)mousePos.x);
 	ball.update();
 }
 
-void GameScene::draw(RenderWindow &window)
+void GameScene::draw()
 {
 	window.clear(Color::Blue);
 	window.draw(ball);

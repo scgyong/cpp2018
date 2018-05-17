@@ -6,11 +6,13 @@ using namespace sf;
 
 class Scene
 {
+protected:
+	RenderWindow &window;
 public:
-	Scene();
+	Scene(RenderWindow &window);
 	virtual ~Scene();
 
 	virtual void update() = 0;
-	virtual void draw(RenderWindow &window) = 0;
+	virtual void draw() = 0;
 };
 

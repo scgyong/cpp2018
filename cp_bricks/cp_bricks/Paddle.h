@@ -9,5 +9,7 @@ class Paddle :
 public:
 	Paddle(float x, float y);
 	virtual ~Paddle();
+
+	void update(float x);
 };
 

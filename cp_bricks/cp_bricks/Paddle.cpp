@@ -15,3 +15,10 @@ Paddle::Paddle(float x, float y)
 Paddle::~Paddle()
 {
 }
+
+void Paddle::update(float x)
+{
+	auto pos = getPosition();
+	pos.x = x;
+	setPosition(pos);
+}
