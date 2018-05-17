@@ -30,7 +30,13 @@ GameScene::~GameScene()
 void GameScene::update()
 {
 	Vector2i mousePos = Mouse::getPosition(window);
-	paddle.update((float)mousePos.x);
+	float x = mousePos.x;
+	if (x < 0) {
+		x = 0;
+	} else if (x > WINDOW_WIDTH - PADDLE_WIDTH ) {
+		x = WINDOW_WIDTH - PADDLE_WIDTH;
+	}
+	paddle.update(x);
 	ball.update();
 }
 

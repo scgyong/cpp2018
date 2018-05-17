@@ -1,8 +1,5 @@
 #include "Paddle.h"
 
-#define PADDLE_WIDTH 80.0
-#define PADDLE_HEIGHT 20.0
-
 Paddle::Paddle(float x, float y)
 {
 	setPosition(x, y);
