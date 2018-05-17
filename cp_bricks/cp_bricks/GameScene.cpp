@@ -42,6 +42,13 @@ void GameScene::update()
 	if (ball.collides(paddle)) {
 		ball.bounceUp();
 	}
+	for (auto it = bricks.begin(); it != bricks.end(); it++) {
+		if (ball.collides(*it)) {
+			ball.bounceY();
+			bricks.erase(it);
+			break;
+		}
+	}
 }
 
 void GameScene::draw()

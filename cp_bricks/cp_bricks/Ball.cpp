@@ -48,3 +48,8 @@ void Ball::bounceUp()
 {
 	speed.y = -abs(speed.y);
 }
+
+void Ball::bounceY()
+{
+	speed.y = -speed.y;
+}

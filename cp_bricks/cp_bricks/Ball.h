@@ -16,5 +16,6 @@ public:
 
 	bool collides(Shape &shape);
 	void bounceUp();
+	void bounceY();
 };
 
