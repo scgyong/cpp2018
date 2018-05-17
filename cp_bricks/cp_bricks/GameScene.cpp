@@ -38,6 +38,10 @@ void GameScene::update()
 	}
 	paddle.update(x);
 	ball.update();
+
+	if (ball.collides(paddle)) {
+		ball.bounceUp();
+	}
 }
 
 void GameScene::draw()

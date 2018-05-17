@@ -36,3 +36,15 @@ void Ball::update()
 		speed.y = -abs(speed.y);
 	}
 }
+
+bool Ball::collides(Shape &shape)
+{
+	auto myBounds = getGlobalBounds();
+	auto shapeBounds = shape.getGlobalBounds();
+	return myBounds.intersects(shapeBounds);
+}
+
+void Ball::bounceUp()
+{
+	speed.y = -abs(speed.y);
+}

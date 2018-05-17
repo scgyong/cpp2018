@@ -13,5 +13,8 @@ public:
 	virtual ~Ball();
 
 	void update();
+
+	bool collides(Shape &shape);
+	void bounceUp();
 };
 
