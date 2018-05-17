@@ -2,10 +2,13 @@
 #include "GameScene.h"
 #include "main.h"
 
+#define PADDLE_Y_OFFSET 50.0
+
 using namespace sf;
 
 GameScene::GameScene() :
-	ball(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)
+	ball(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2),
+	paddle(WINDOW_WIDTH / 2, WINDOW_HEIGHT - PADDLE_Y_OFFSET)
 {
 	for (int y = 0; y < 5; y++) {
 		for (int x = 0; x < 10; x++) {
@@ -35,4 +38,5 @@ void GameScene::draw(RenderWindow &window)
 	for (auto &b : bricks) {
 		window.draw(b);
 	}
+	window.draw(paddle);
 }
