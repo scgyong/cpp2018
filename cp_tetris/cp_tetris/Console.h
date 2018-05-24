@@ -9,5 +9,6 @@ public:
 	static int getch();
 	static void setCursor(int x, int y);
 	static void putChar(char ch);
+	static void sleep(int msec);
 };
 

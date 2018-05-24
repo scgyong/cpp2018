@@ -11,5 +11,7 @@ public:
 	virtual ~Block();
 
 	void draw();
+	void move(int dx);
+	void moveDown();
 };
 

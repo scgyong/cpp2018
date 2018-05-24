@@ -53,3 +53,8 @@ void Console::putChar(char ch)
 {
 	std::cout << ch;
 }
+
+void Console::sleep(int msec)
+{
+	Sleep(msec);
+}

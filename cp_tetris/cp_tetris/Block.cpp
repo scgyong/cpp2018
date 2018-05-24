@@ -46,3 +46,13 @@ void Block::draw()
 		Console::putChar('O');
 	}
 }
+
+void Block::move(int dx)
+{
+	x += dx;
+}
+
+void Block::moveDown()
+{
+	y++;
+}
