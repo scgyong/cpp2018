@@ -1,4 +1,5 @@
 #include <Windows.h>
+#include <iostream>
 #include "Console.h"
 
 
@@ -46,4 +47,9 @@ void Console::setCursor(int x, int y)
 	HANDLE rHnd = GetStdHandle(STD_OUTPUT_HANDLE);
 	COORD coord = { (short)x, (short)y };
 	SetConsoleCursorPosition(rHnd, coord);
+}
+
+void Console::putChar(char ch)
+{
+	std::cout << ch;
 }

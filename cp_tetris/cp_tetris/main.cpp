@@ -1,13 +1,13 @@
-#include <iostream>
-#include "Console.h"
-
-using namespace std;
+//#include <iostream>
+//#include "Console.h"
+#include "Game.h"
+//#include "main.h"
+//using namespace std;
 
 int main(void)
 {
-	Console::clear();
-	Console::setCursor(20, 5);
-	cout << "Hello";
+	Game game;
+	game.start();
 
 	return 0;
 }

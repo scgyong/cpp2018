@@ -8,5 +8,6 @@ public:
 	static void clear(char fill = ' ');
 	static int getch();
 	static void setCursor(int x, int y);
+	static void putChar(char ch);
 };
 
