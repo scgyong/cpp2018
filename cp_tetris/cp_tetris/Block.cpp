@@ -1,5 +1,6 @@
 #include "Block.h"
 #include "Console.h"
+#include "Board.h"
 
 // ¤¡, ¤¤, ¤¿, s, z, ¤±, 1, 
 
@@ -23,7 +24,7 @@ static int coords[][4] = {
 Block::Block()
 {
 	type = 1;
-	x = 10, y = 10;
+	x = 0, y = 0;
 }
 
 
@@ -47,12 +48,38 @@ void Block::draw()
 	}
 }
 
-void Block::move(int dx)
+bool Block::move(int dx)
 {
+	int width = Board::get().getWidth();
+
+	for (int i = 0; i < 4; i++) {
+		int v = coords[type - 1][i];
+		int nx = x + v % 2 + dx;
+		//int ny = y + v / 2;
+
+		if (nx < 0 || nx >= width) {
+			return false;
+		}
+	}
+
 	x += dx;
+	return true;
 }
 
-void Block::moveDown()
+bool Block::moveDown()
 {
+	int height = Board::get().getHeight();
+
+	for (int i = 0; i < 4; i++) {
+		int v = coords[type - 1][i];
+		//int nx = x + v % 2;
+		int ny = y + v / 2 + 1;
+
+		if (ny >= height) {
+			return false;
+		}
+	}
+
 	y++;
+	return true;
 }

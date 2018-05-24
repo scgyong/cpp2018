@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Board.h"
 #include "Block.h"
 #include "Console.h"
 
@@ -14,6 +15,7 @@ Game::~Game()
 void Game::start()
 {
 	Console::clear();
+	Board board;
 	Block block;
 	bool loop = true;
 	while (loop) {
