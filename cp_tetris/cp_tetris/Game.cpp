@@ -18,7 +18,6 @@ void Game::start()
 	bool loop = true;
 	while (loop) {
 		Console::sleep(100);
-		Console::clear();
 		int ch = Console::getch();
 		switch (ch) {
 		case 'q':
@@ -34,6 +33,7 @@ void Game::start()
 			block.moveDown();
 			break;
 		}
+		Console::clear();
 		block.draw();
 	}
 }
