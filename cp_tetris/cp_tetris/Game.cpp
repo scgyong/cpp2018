@@ -47,7 +47,7 @@ void Game::start()
 			block.rotate();
 			break;
 		}
-		if (++tick_count > 10) {
+		if (++tick_count > 2) {
 			tick_count = 0;
 			if (!block.moveDown()) {
 				board.plant(block);

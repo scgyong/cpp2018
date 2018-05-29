@@ -49,6 +49,16 @@ void Board::draw()
 	}
 }
 
+bool Board::isValid(int x, int y)
+{
+	if (x < 0 || x >= width) return false;
+	if (y < 0 || y >= height) return false;
+
+	if (bits[y * width + x] > 0) return false;
+
+	return true;
+}
+
 //Board &Board::get()
 //{
 //	return *g_board;

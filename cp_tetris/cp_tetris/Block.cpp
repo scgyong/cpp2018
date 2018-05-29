@@ -67,14 +67,13 @@ void Block::draw()
 
 bool Block::move(int dx)
 {
-	int width = Board::get().getWidth();
+	Board &board = Board::get();
 
 	for (int i = 0; i < 4; i++) {
 		int nx = points[i].x + dx;
-		if (nx < 0 || nx >= width) {
+		if (!board.isValid(nx, points[i].y)) {
 			return false;
 		}
-		//points[i].x = nx;
 	}
 
 	for (int i = 0; i < 4; i++) {
@@ -85,11 +84,11 @@ bool Block::move(int dx)
 
 bool Block::moveDown()
 {
-	int height = Board::get().getHeight();
+	Board &board = Board::get();
 
 	for (int i = 0; i < 4; i++) {
 		int ny = points[i].y + 1;
-		if (ny >= height) {
+		if (!board.isValid(points[i].x, ny)) {
 			return false;
 		}
 	}
@@ -102,8 +101,7 @@ bool Block::moveDown()
 
 bool Block::rotate()
 {
-	int width = Board::get().getWidth();
-	int height = Board::get().getHeight();
+	Board &board = Board::get();
 
 	int x = points[1].x;
 	int y = points[1].y;
@@ -115,10 +113,7 @@ bool Block::rotate()
 		int dy = points[i].y - y;
 		int nx = x + dy;
 		int ny = y - dx;
-		if (nx < 0 || nx >= width) {
-			return false;
-		}
-		if (ny >= height) {
+		if (!board.isValid(nx, ny)) {
 			return false;
 		}
 		copy[i].x = nx;
