@@ -17,6 +17,8 @@ void Game::start()
 	Console::clear();
 	Board board;
 	Block block;
+	block.init(2, 0, 0);
+
 	bool loop = true;
 	while (loop) {
 		Console::sleep(100);
@@ -33,6 +35,9 @@ void Game::start()
 			break;
 		case 'k':
 			block.moveDown();
+			break;
+		case 'i':
+			block.rotate();
 			break;
 		}
 		Console::clear();

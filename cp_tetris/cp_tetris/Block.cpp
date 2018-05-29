@@ -24,12 +24,25 @@ static int coords[][4] = {
 Block::Block()
 {
 	type = 1;
-	x = 0, y = 0;
+	//x = 0, y = 0;
 }
 
 
 Block::~Block()
 {
+}
+
+void Block::init(int type, int x, int y)
+{
+	this->type = type;
+
+	for (int i = 0; i < 4; i++) {
+		int v = coords[type - 1][i];
+		int dx = v % 2;
+		int dy = v / 2;
+		points[i].x = x + dx;
+		points[i].y = y + dy;
+	}
 }
 
 // 01
@@ -40,10 +53,7 @@ Block::~Block()
 void Block::draw()
 {
 	for (int i = 0; i < 4; i++) {
-		int v = coords[type - 1][i];
-		int dx = v % 2;
-		int dy = v / 2;
-		Console::setCursor(x + dx, y + dy);
+		Console::setCursor(points[i].x, points[i].y);
 		Console::putChar('O');
 	}
 }
@@ -53,16 +63,16 @@ bool Block::move(int dx)
 	int width = Board::get().getWidth();
 
 	for (int i = 0; i < 4; i++) {
-		int v = coords[type - 1][i];
-		int nx = x + v % 2 + dx;
-		//int ny = y + v / 2;
-
+		int nx = points[i].x + dx;
 		if (nx < 0 || nx >= width) {
 			return false;
 		}
+		//points[i].x = nx;
 	}
 
-	x += dx;
+	for (int i = 0; i < 4; i++) {
+		points[i].x += dx;
+	}
 	return true;
 }
 
@@ -71,15 +81,30 @@ bool Block::moveDown()
 	int height = Board::get().getHeight();
 
 	for (int i = 0; i < 4; i++) {
-		int v = coords[type - 1][i];
-		//int nx = x + v % 2;
-		int ny = y + v / 2 + 1;
-
+		int ny = points[i].y + 1;
 		if (ny >= height) {
 			return false;
 		}
 	}
 
-	y++;
+	for (int i = 0; i < 4; i++) {
+		points[i].y++;
+	}
+	return true;
+}
+
+bool Block::rotate()
+{
+	int x = points[1].x;
+	int y = points[1].y;
+
+	for (int i = 0; i < 4; i++) {
+		int dx = points[i].x - x;
+		int dy = points[i].y - y;
+		int nx = x + dy;
+		int ny = y - dx;
+		points[i].x = nx;
+		points[i].y = ny;
+	}
 	return true;
 }
