@@ -74,9 +74,10 @@ void Game::start()
 			redraws = true;
 		}
 		if (redraws) {
-			Console::clear();
+			//Console::clear();
 			board.draw();
 			block.draw();
+			Console::setCursor(0, 0);
 			redraws = false;
 		}
 	}
