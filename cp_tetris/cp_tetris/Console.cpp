@@ -30,9 +30,24 @@ int Console::getch()
 	rHnd = GetStdHandle(STD_INPUT_HANDLE);
 
 	INPUT_RECORD rec;
-	DWORD num;
+	DWORD num = 0;
 
-	do { ReadConsoleInput(rHnd, &rec, 1, &num); } while (num == 0 || rec.EventType != KEY_EVENT || rec.Event.KeyEvent.bKeyDown == FALSE);
+	PeekConsoleInput(rHnd, &rec, 1, &num);
+	if (num == 0) {
+		return 0;
+	}
+
+	ReadConsoleInput(rHnd, &rec, 1, &num);
+	char buf[100];
+	wsprintfA(buf, "R num=%d type=%d down=%d\n", num, (int)rec.EventType, rec.Event.KeyEvent.bKeyDown);
+	OutputDebugStringA(buf);
+	if (num == 0 ||
+		rec.EventType != KEY_EVENT || 
+		rec.Event.KeyEvent.bKeyDown == FALSE)
+	{
+		return 0;
+	}
+
 
 	short rv = rec.Event.KeyEvent.uChar.AsciiChar;
 
