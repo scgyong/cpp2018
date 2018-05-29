@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "Block.h"
 #include "Console.h"
 #include "Board.h"
@@ -30,6 +31,12 @@ Block::Block()
 
 Block::~Block()
 {
+}
+
+void Block::init()
+{
+	int t = rand() % 7 + 1;
+	init(t, 0, 0);
 }
 
 void Block::init(int type, int x, int y)

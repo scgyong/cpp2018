@@ -13,10 +13,13 @@ class Block
 public:
 	Block();
 	virtual ~Block();
+	void init();
 	void init(int type, int x, int y);
 	void draw();
 	bool move(int dx);
 	bool moveDown();
 	bool rotate();
+
+	friend class Board;
 };
 

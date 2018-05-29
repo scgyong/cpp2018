@@ -1,3 +1,6 @@
+#include <stdlib.h>
+#include <time.h>
+
 #include "Game.h"
 #include "Board.h"
 #include "Block.h"
@@ -5,6 +8,7 @@
 
 Game::Game()
 {
+	srand((unsigned)time(NULL));
 }
 
 
@@ -14,11 +18,14 @@ Game::~Game()
 
 void Game::start()
 {
-	Console::clear();
 	Board board;
 	Block block;
-	block.init(2, 0, 0);
+	block.init();
 
+	Console::clear();
+	block.draw();
+
+	int tick_count = 0;
 	bool loop = true;
 	while (loop) {
 		Console::sleep(100);
@@ -40,7 +47,15 @@ void Game::start()
 			block.rotate();
 			break;
 		}
+		if (++tick_count > 10) {
+			tick_count = 0;
+			if (!block.moveDown()) {
+				board.plant(block);
+				block.init();
+			}
+		}
 		Console::clear();
+		board.draw();
 		block.draw();
 	}
 }
