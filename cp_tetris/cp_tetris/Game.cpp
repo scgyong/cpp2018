@@ -36,21 +36,26 @@ void Game::start()
 			continue;
 		case 'j':
 			block.move(-1);
+			tick_count = 0;
 			break;
 		case 'l':
 			block.move(1);
+			tick_count = 0;
 			break;
 		case 'k':
 			block.moveDown();
+			tick_count = 0;
 			break;
 		case 'i':
 			block.rotate();
+			tick_count = 0;
 			break;
 		}
 		if (++tick_count > 2) {
 			tick_count = 0;
 			if (!block.moveDown()) {
 				board.plant(block);
+				board.deleteLines();
 				block.init();
 			}
 		}

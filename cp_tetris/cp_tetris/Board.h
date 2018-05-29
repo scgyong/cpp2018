@@ -20,5 +20,6 @@ public:
 	void plant(Block &block);
 	void draw();
 	bool isValid(int x, int y);
+	int deleteLines();
 };
 

@@ -59,6 +59,27 @@ bool Board::isValid(int x, int y)
 	return true;
 }
 
+int Board::deleteLines()
+{
+	int lines = 0;
+	// for every lines
+	{
+		int count = 0;
+		// for every x 
+		{
+			//if (block exists) {
+			//	count++;
+			//}
+		}
+		if (count == width) {
+			//remove all bits at that line
+			//move down all bits above 
+			lines++;
+		}
+	}
+	return lines;
+}
+
 //Board &Board::get()
 //{
 //	return *g_board;
