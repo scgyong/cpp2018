@@ -95,16 +95,32 @@ bool Block::moveDown()
 
 bool Block::rotate()
 {
+	int width = Board::get().getWidth();
+	int height = Board::get().getHeight();
+
 	int x = points[1].x;
 	int y = points[1].y;
+
+	Point copy[4];
 
 	for (int i = 0; i < 4; i++) {
 		int dx = points[i].x - x;
 		int dy = points[i].y - y;
 		int nx = x + dy;
 		int ny = y - dx;
-		points[i].x = nx;
-		points[i].y = ny;
+		if (nx < 0 || nx >= width) {
+			return false;
+		}
+		if (ny >= height) {
+			return false;
+		}
+		copy[i].x = nx;
+		copy[i].y = ny;
 	}
+
+	for (int i = 0; i < 4; i++) {
+		points[i] = copy[i];
+	}
+
 	return true;
 }
