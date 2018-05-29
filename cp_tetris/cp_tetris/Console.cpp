@@ -100,3 +100,8 @@ void Console::sleep(int msec)
 {
 	Sleep(msec);
 }
+
+int Console::getSystemTime()
+{
+	return (int)GetTickCount();
+}

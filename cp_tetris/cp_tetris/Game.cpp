@@ -15,6 +15,7 @@ Game::Game()
 Game::~Game()
 {
 }
+#include <windows.h>
 
 void Game::start()
 {
@@ -25,42 +26,58 @@ void Game::start()
 	Console::clear();
 	block.draw();
 
-	int tick_count = 0;
+	int prev_time = Console::getSystemTime();
 	bool loop = true;
 	while (loop) {
-		Console::sleep(100);
+		//Console::sleep(100);
+		bool redraws = false;
+		int now = Console::getSystemTime();
 		int ch = Console::getch();
+
+		char buf[100];
+		wsprintfA(buf, "%d : %d - %d = %d\n", ch, prev_time, now, (now - prev_time));
+		OutputDebugStringA(buf);
+
 		switch (ch) {
 		case 'q':
 			loop = false;
 			continue;
 		case 'j':
-			block.move(-1);
-			tick_count = 0;
+			if (block.move(-1)) {
+				redraws = true;
+			}
 			break;
 		case 'l':
-			block.move(1);
-			tick_count = 0;
+			if (block.move(1)) {
+				redraws = true;
+			}
 			break;
 		case 'k':
-			block.moveDown();
-			tick_count = 0;
+			if (block.moveDown()) {
+				redraws = true;
+				prev_time = now;
+			}
 			break;
 		case 'i':
-			block.rotate();
-			tick_count = 0;
+			if (block.rotate()) {
+				redraws = true;
+			}
 			break;
 		}
-		if (++tick_count > 2) {
-			tick_count = 0;
+		if (now - prev_time > 1000) {
+			prev_time += 1000;
 			if (!block.moveDown()) {
 				board.plant(block);
 				board.deleteLines();
 				block.init();
 			}
+			redraws = true;
 		}
-		Console::clear();
-		board.draw();
-		block.draw();
+		if (redraws) {
+			Console::clear();
+			board.draw();
+			block.draw();
+			redraws = false;
+		}
 	}
 }
