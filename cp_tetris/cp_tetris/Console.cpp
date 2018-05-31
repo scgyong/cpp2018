@@ -65,10 +65,17 @@ int Console::getch()
 	int key = 0;
 	Event event;
 	while (window->pollEvent(event)) {
+		//char buf[100];
+		//wsprintfA(buf, "%d : %d\n", event.type, event.key.code);
+		//OutputDebugStringA(buf);
 		if (event.type == Event::Closed) {
 			window->close();
 		} else if (event.type == Event::KeyPressed) {
-			key = event.key.code;
+			if (event.key.code >= Keyboard::A &&
+				event.key.code <= Keyboard::Z)
+			{
+				key = 'a' + (int)event.key.code;
+			}
 		}
 	}
 	
@@ -101,7 +108,7 @@ void Console::putChar(char ch)
 			Color::Yellow,
 			Color::Magenta,
 			Color::Red,
-			Color(0x112233)
+			Color(0xFF7733FF)
 		};
 		color = colors[ch - '1'];
 	}
