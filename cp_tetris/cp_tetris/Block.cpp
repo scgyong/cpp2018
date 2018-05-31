@@ -36,7 +36,7 @@ Block::~Block()
 void Block::init()
 {
 	int t = rand() % 7 + 1;
-	init(t, 0, 0);
+	init(t, 4, 0);
 }
 
 void Block::init(int type, int x, int y)

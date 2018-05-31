@@ -62,19 +62,24 @@ bool Board::isValid(int x, int y)
 int Board::deleteLines()
 {
 	int lines = 0;
-	// for every lines
-	{
+	for (int y = 0; y < height; y++) {
 		int count = 0;
-		// for every x 
-		{
-			//if (block exists) {
-			//	count++;
-			//}
+		for (int x = 0; x < width; x++) {
+			if (bits[y * width + x] > 0) {
+				count++;
+			}
 		}
 		if (count == width) {
-			//remove all bits at that line
-			//move down all bits above 
 			lines++;
+			for (int y2 = y - 1; y2 >= 0; y2--) {
+				for (int x = 0; x < width; x++) {
+					bits[(y2 + 1) * width + x] =
+						bits[y2 * width + x];
+				}
+			}
+			for (int x = 0; x < width; x++) {
+				bits[0 * width + x] = 0;
+			}
 		}
 	}
 	return lines;
