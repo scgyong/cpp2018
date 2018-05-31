@@ -10,6 +10,8 @@ using namespace sf;
 
 static RenderWindow *window = NULL;
 static int xCursor = 0, yCursor = 0;
+static Sprite blockImage;
+static Texture blockTexture;
 
 Console::Console()
 {
@@ -45,6 +47,10 @@ void Console::init()
 	window = new RenderWindow(
 		VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT),
 		"Tetris");
+	window->setFramerateLimit(60);
+
+	blockTexture.loadFromFile("res/tetris_bits.png");
+	blockImage.setTexture(blockTexture);
 }
 
 void Console::destroy()
@@ -95,27 +101,19 @@ void Console::setCursor(int x, int y)
 
 void Console::putChar(char ch)
 {
-	Color color;
-	if (ch == ' ') {
-		color = Color::Black;
-	} else if (ch == 'O') {
-		color = Color::White;
+	if (ch == ' ' || ch == 'O') {
+		Color color = ch == ' ' ? Color::Black : Color::White;
+		RectangleShape rect(Vector2f(30, 30));
+		rect.setPosition(xCursor * 30, yCursor * 30);
+		rect.setFillColor(color);
+		window->draw(rect);
 	} else if (ch >= '1' && ch <= '7') {
-		static Color colors[] = {
-			Color::Blue,
-			Color::Cyan,
-			Color::Green,
-			Color::Yellow,
-			Color::Magenta,
-			Color::Red,
-			Color(0xFF7733FF)
-		};
-		color = colors[ch - '1'];
+		int index = ch - '1';
+		IntRect rect(index * 30, 0, 30, 30);
+		blockImage.setTextureRect(rect);
+		blockImage.setPosition(xCursor * 30, yCursor * 30);
+		window->draw(blockImage);
 	}
-	RectangleShape rect(Vector2f(30, 30));
-	rect.setPosition(xCursor * 30, yCursor * 30);
-	rect.setFillColor(color);
-	window->draw(rect);
 
 	xCursor++;
 }

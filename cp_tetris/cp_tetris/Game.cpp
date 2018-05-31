@@ -26,7 +26,9 @@ void Game::start()
 	block.init();
 
 	Console::clear();
+	board.draw();
 	block.draw();
+	Console::display();
 
 	int prev_time = Console::getSystemTime();
 	bool loop = true;

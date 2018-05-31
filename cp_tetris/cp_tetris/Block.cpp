@@ -61,7 +61,7 @@ void Block::draw()
 {
 	for (int i = 0; i < 4; i++) {
 		Console::setCursor(points[i].x, points[i].y);
-		Console::putChar('O');
+		Console::putChar('0' + type);
 	}
 }
 
