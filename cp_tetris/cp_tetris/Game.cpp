@@ -19,6 +19,8 @@ Game::~Game()
 
 void Game::start()
 {
+	Console::init();
+
 	Board board;
 	Block block;
 	block.init();
@@ -34,9 +36,9 @@ void Game::start()
 		int now = Console::getSystemTime();
 		int ch = Console::getch();
 
-		char buf[100];
-		wsprintfA(buf, "%d : %d - %d = %d\n", ch, prev_time, now, (now - prev_time));
-		OutputDebugStringA(buf);
+		//char buf[100];
+		//wsprintfA(buf, "%d : %d - %d = %d\n", ch, prev_time, now, (now - prev_time));
+		//OutputDebugStringA(buf);
 
 		switch (ch) {
 		case 'q':
@@ -77,8 +79,11 @@ void Game::start()
 			//Console::clear();
 			board.draw();
 			block.draw();
-			Console::setCursor(0, 0);
+			Console::display();
+			//Console::setCursor(0, 0);
 			redraws = false;
 		}
 	}
+
+	Console::destroy();
 }
