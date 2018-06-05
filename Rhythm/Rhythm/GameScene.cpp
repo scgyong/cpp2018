@@ -1,6 +1,8 @@
 #include "GameScene.h"
 #include "TitleScene.h"
 
+#define PIXELS_PER_SECOND 500
+#define BASE_Y 500
 
 GameScene::GameScene(RenderWindow &window)
 	: Scene(window)
@@ -32,8 +34,15 @@ void GameScene::draw()
 	text.setFillColor(Color::White);
 	window.draw(text);
 
-	//double now = clock.getElapsedTime().asSeconds();
-	//for (auto note : song.notes) {
-	//	double diff = note.seconds
-	//}
+	CircleShape circle(20.0f);
+	circle.setOrigin(20, 20);
+	circle.setFillColor(Color::White);
+
+	float now = (float)clock.getElapsedTime().asSeconds();
+	for (auto note : song.notes) {
+		float x = (float)(60.0 * note.position);
+		float y = PIXELS_PER_SECOND * (now - note.seconds) + BASE_Y;
+		circle.setPosition(x, y);
+		window.draw(circle);
+	}
 }

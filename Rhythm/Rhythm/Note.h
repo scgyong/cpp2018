@@ -7,7 +7,7 @@ public:
 	};
 	int noteType;
 	int position; // 1=s, 2=d, 3=f, 4=j, 5=k, 6=l
-	double seconds;
+	float seconds;
 
 	Note();
 	virtual ~Note();

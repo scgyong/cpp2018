@@ -26,8 +26,8 @@ void TitleScene::draw()
 	window.clear(Color::Blue);
 	Text text;
 	text.setString("Rhythm Game");
-	text.setScale(2.f, 2.f);
+	//text.setScale(2.f, 2.f);
 	text.setPosition(100.f, 100.f);
-	text.setColor(Color::White);
+	text.setFillColor(Color::White);
 	window.draw(text);
 }
