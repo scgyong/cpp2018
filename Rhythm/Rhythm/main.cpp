@@ -9,7 +9,7 @@ int main(void)
 	//GameScene scene;
 	RenderWindow window(
 		VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT),
-		"Bricks");
+		"Rhythm");
 	Scene::changeScene(new TitleScene(window));
 
 	window.setFramerateLimit(60);
@@ -25,7 +25,8 @@ int main(void)
 		window.display();
 	}
 
-	delete Scene::getCurrentScene();
+	Scene::changeScene(NULL);
+	//delete Scene::getCurrentScene();
 
 	return 0;
 }
