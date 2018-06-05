@@ -1,6 +1,5 @@
 #include <SFML/Graphics.hpp>
-//#include "GameScene.h"
-#include "Scene.h"
+#include "TitleScene.h"
 #include "main.h"
 
 using namespace sf;
@@ -11,7 +10,8 @@ int main(void)
 	RenderWindow window(
 		VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT),
 		"Bricks");
-	Scene *scene = NULL;// new GameScene(window);
+	Scene::changeScene(new TitleScene(window));
+
 	window.setFramerateLimit(60);
 	while (window.isOpen()) {
 		Event event;
@@ -20,12 +20,12 @@ int main(void)
 				window.close();
 			}
 		}
-		scene->update();
-		scene->draw();
+		Scene::getCurrentScene()->update();
+		Scene::getCurrentScene()->draw();
 		window.display();
 	}
 
-	delete scene;
+	delete Scene::getCurrentScene();
 
 	return 0;
 }
