@@ -19,8 +19,13 @@ GameScene::~GameScene()
 void GameScene::update()
 {
 	if (Keyboard::isKeyPressed(Keyboard::Key::Escape)) {
-		Scene *scene = new TitleScene(window);
-		changeScene(scene);
+		goBackToTitle();
+		return;
+	}
+
+	if (clock.getElapsedTime().asSeconds() > song.duration) {
+		goBackToTitle();
+		return;
 	}
 }
 
@@ -45,4 +50,9 @@ void GameScene::draw()
 		circle.setPosition(x, y);
 		window.draw(circle);
 	}
+}
+
+void GameScene::goBackToTitle()
+{
+	changeScene(new TitleScene(window));
 }

@@ -8,7 +8,9 @@ using namespace std;
 class Song
 {
 public:
+	string title;
 	vector<Note> notes;
+	float duration;
 	Song();
 	virtual ~Song();
 
