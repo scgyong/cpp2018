@@ -32,17 +32,43 @@ void GameScene::update()
 		goBackToTitle();
 		return;
 	}
+	static const Keyboard::Key keys[] = {
+		Keyboard::Key::S,
+		Keyboard::Key::D,
+		Keyboard::Key::F,
+		Keyboard::Key::J,
+		Keyboard::Key::K,
+		Keyboard::Key::L,
+	};
+	for (int i = 0; i < 6; i++) {
+		presseds[i] = Keyboard::isKeyPressed(keys[i]);
+	}
 }
 
 void GameScene::draw()
 {
 	window.clear(Color::Red);
-	Text text;
-	text.setString("In Game");
-	//text.setScale(2.f, 2.f);
-	text.setPosition(100.f, 100.f);
-	text.setFillColor(Color::White);
-	window.draw(text);
+	//Text text;
+	//text.setString("In Game");
+	////text.setScale(2.f, 2.f);
+	//text.setPosition(100.f, 100.f);
+	//text.setFillColor(Color::White);
+	//window.draw(text);
+
+	auto wsize = window.getSize();
+
+	RectangleShape vbar(
+		Vector2f(60.0f, wsize.y)
+	);
+	vbar.setFillColor(Color(0xFFFFFF3f));
+
+	for (int i = 0; i < 6; i++) {
+		if (presseds[i]) {
+			vbar.setPosition(i * 60 + 30, 0);
+			window.draw(vbar);
+		}
+	}
+
 
 	CircleShape circle(20.0f);
 	circle.setOrigin(20, 20);
@@ -59,7 +85,6 @@ void GameScene::draw()
 		window.draw(circle);
 	}
 
-	auto wsize = window.getSize();
 	RectangleShape line(
 		Vector2f((float)wsize.x, 3.0f)
 	);

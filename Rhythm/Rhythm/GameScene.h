@@ -7,6 +7,7 @@ class GameScene :
 {
 	Clock clock;
 	Song song;
+	bool presseds[6];
 public:
 	GameScene(RenderWindow &window);
 	virtual ~GameScene();
