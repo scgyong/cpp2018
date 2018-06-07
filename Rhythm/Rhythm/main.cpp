@@ -18,7 +18,9 @@ int main(void)
 		while (window.pollEvent(event)) {
 			if (event.type == Event::Closed) {
 				window.close();
+				continue;
 			}
+			Scene::getCurrentScene()->handleEvent(event);
 		}
 		Scene::getCurrentScene()->update();
 		Scene::getCurrentScene()->draw();

@@ -15,6 +15,7 @@ public:
 
 	virtual void update() = 0;
 	virtual void draw() = 0;
+	virtual void handleEvent(Event &event) {}
 
 	static void changeScene(Scene *scene);
 	static Scene *getCurrentScene() { return currentScene; }

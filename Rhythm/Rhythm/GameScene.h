@@ -13,7 +13,9 @@ public:
 
 	virtual void update();
 	virtual void draw();
+	virtual void handleEvent(Event &event);
 
 	void goBackToTitle();
+	void handleInput(int position);
 };
 

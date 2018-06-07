@@ -5,6 +5,7 @@ public:
 	enum NoteType {
 		Nothing, Tap, Slide
 	};
+	bool pressed;
 	int noteType;
 	int position; // 1=s, 2=d, 3=f, 4=j, 5=k, 6=l
 	float seconds;

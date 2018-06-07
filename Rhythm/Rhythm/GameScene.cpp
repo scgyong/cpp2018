@@ -7,6 +7,11 @@
 GameScene::GameScene(RenderWindow &window)
 	: Scene(window)
 {
+	/*
+	song_1.txt             song_2015184027_1.txt
+	song_2015182003_1.txt  song_2017180012_6.txt
+	song_2015182031_1.txt  song_2017182039_1.txt
+	*/
 	song.load("song_1.txt");
 	clock.restart();
 }
@@ -18,10 +23,10 @@ GameScene::~GameScene()
 
 void GameScene::update()
 {
-	if (Keyboard::isKeyPressed(Keyboard::Key::Escape)) {
-		goBackToTitle();
-		return;
-	}
+	//if (Keyboard::isKeyPressed(Keyboard::Key::Escape)) {
+	//	goBackToTitle();
+	//	return;
+	//}
 
 	if (clock.getElapsedTime().asSeconds() > song.duration) {
 		goBackToTitle();
@@ -45,14 +50,64 @@ void GameScene::draw()
 
 	float now = (float)clock.getElapsedTime().asSeconds();
 	for (auto note : song.notes) {
+		if (note.pressed) {
+			continue;
+		}
 		float x = (float)(60.0 * note.position);
 		float y = PIXELS_PER_SECOND * (now - note.seconds) + BASE_Y;
 		circle.setPosition(x, y);
 		window.draw(circle);
+	}
+
+	auto wsize = window.getSize();
+	RectangleShape line(
+		Vector2f((float)wsize.x, 3.0f)
+	);
+	line.setPosition(0, BASE_Y - 1);
+	line.setFillColor(Color::Yellow);
+	window.draw(line);
+}
+
+void GameScene::handleEvent(Event & event)
+{
+	if (event.type == Event::KeyPressed) {
+		int position = 0;
+		switch (event.key.code) {
+		case Keyboard::Key::Escape:
+			goBackToTitle();
+			return;
+		case Keyboard::Key::S:
+			position = 1;
+			break;
+		case Keyboard::Key::D:
+			position = 2;
+			break;
+		case Keyboard::Key::F:
+			position = 3;
+			break;
+		case Keyboard::Key::J:
+			position = 4;
+			break;
+		case Keyboard::Key::K:
+			position = 5;
+			break;
+		case Keyboard::Key::L:
+			position = 6;
+			break;
+		}
+		if (position > 0) {
+			handleInput(position);
+		}
 	}
 }
 
 void GameScene::goBackToTitle()
 {
 	changeScene(new TitleScene(window));
+}
+
+void GameScene::handleInput(int position)
+{
+	float time = (float)clock.getElapsedTime().asSeconds();
+	song.handleInput(position, time);
 }

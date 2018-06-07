@@ -27,6 +27,7 @@ bool Song::load(const char * fileName)
 		istringstream s(line);
 		Note note;
 		s >> note.noteType >> note.position >> note.seconds;
+		note.pressed = false;
 		notes.push_back(note);
 	}
 
@@ -35,4 +36,32 @@ bool Song::load(const char * fileName)
 		duration = notes[count - 1].seconds + 5.0f;
 	}
 	return true;
+}
+
+#define THRESHOULD_PERFECT 0.010
+#define THRESHOULD_GOOD    0.050
+#define THRESHOULD_BAD     0.100
+
+Song::Accuracy Song::handleInput(int position, float time)
+{
+	for (Note &note : notes) {
+		if (note.position != position) {
+			continue; // early return
+		}
+		Accuracy acc = NOTHING;
+		float diff = abs(note.seconds - time);
+		if (diff < THRESHOULD_PERFECT) {
+			acc = PERFECT;
+		} else if (diff < THRESHOULD_GOOD) {
+			acc = GOOD;
+		} else if (diff < THRESHOULD_BAD) {
+			acc = BAD;
+		}
+
+		if (acc != NOTHING) {
+			note.pressed = true;
+			return acc;
+		}
+	}
+	return NOTHING;
 }
