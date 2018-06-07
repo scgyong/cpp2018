@@ -24,6 +24,10 @@ bool Song::load(const char * fileName)
 			title = line.substr(1);
 			continue;
 		}
+		if (line[0] == '@') {
+			soundFilename = line.substr(1);
+			continue;
+		}
 		istringstream s(line);
 		Note note;
 		s >> note.noteType >> note.position >> note.seconds;
@@ -34,6 +38,13 @@ bool Song::load(const char * fileName)
 	int count = notes.size();
 	if (count > 0) {
 		duration = notes[count - 1].seconds + 5.0f;
+	}
+
+	if (!soundFilename.empty()) {
+		if (buffer.loadFromFile(soundFilename)) {
+			sound.setBuffer(buffer);
+			sound.play();
+		}
 	}
 	return true;
 }
