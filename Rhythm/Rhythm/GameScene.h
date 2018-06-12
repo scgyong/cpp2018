@@ -6,10 +6,10 @@ class GameScene :
 	public Scene
 {
 	Clock clock;
-	Song song;
+	Song &song;
 	bool presseds[6];
 public:
-	GameScene(RenderWindow &window);
+	GameScene(RenderWindow &window, Song &song);
 	virtual ~GameScene();
 
 	virtual void update();

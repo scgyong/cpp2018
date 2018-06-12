@@ -4,15 +4,16 @@
 #define PIXELS_PER_SECOND 500
 #define BASE_Y 500
 
-GameScene::GameScene(RenderWindow &window)
-	: Scene(window)
+GameScene::GameScene(RenderWindow &window, Song &song)
+	: Scene(window), song(song)
 {
 	/*
 	song_1.txt             song_2015184027_1.txt
 	song_2015182003_1.txt  song_2017180012_6.txt
 	song_2015182031_1.txt  song_2017182039_1.txt
 	*/
-	song.load("song_1.txt");
+	//song.load("song_1.txt");
+	song.play();
 	clock.restart();
 }
 

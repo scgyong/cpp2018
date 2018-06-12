@@ -148,6 +148,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DirUtil.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Note.cpp" />
@@ -156,6 +157,7 @@
     <ClCompile Include="TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DirUtil.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Note.h" />

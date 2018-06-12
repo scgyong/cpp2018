@@ -10,6 +10,9 @@ using namespace sf;
 class Song
 {
 public:
+	static vector<Song *> songs;
+	static void loadSongs();
+
 	enum Accuracy {
 		NOTHING, BAD, GOOD, PERFECT
 	};
@@ -23,6 +26,8 @@ public:
 	virtual ~Song();
 
 	bool load(const char *fileName);
+	bool play();
+
 	Accuracy handleInput(int position, float time);
 };
 

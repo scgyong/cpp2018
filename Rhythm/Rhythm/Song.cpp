@@ -4,7 +4,33 @@
 #include <sstream>
 
 #include "Song.h"
+#include "DirUtil.h"
+
 using namespace std;
+
+vector<Song *> Song::songs;
+
+void Song::loadSongs()
+{
+	if (songs.size() > 0) {
+		printf("Already loaded %d songs.\n", songs.size());
+		return;
+	}
+	vector<string> filenames;
+	DirUtil::readDir("songs/*.txt", filenames);
+	printf("%d files read.", filenames.size());
+
+	for (string filename : filenames) {
+		Song *song = new Song();
+		string path = "songs/" + filename;
+		bool success = song->load(path.c_str());
+		if (success) {
+			songs.push_back(song);
+		} else {
+			delete song;
+		}
+	}
+}
 
 Song::Song()
 {
@@ -13,6 +39,7 @@ Song::Song()
 
 Song::~Song()
 {
+	printf("Song deleted: 0x%08X\n", this);
 }
 
 bool Song::load(const char * fileName)
@@ -36,15 +63,23 @@ bool Song::load(const char * fileName)
 	}
 
 	int count = notes.size();
-	if (count > 0) {
-		duration = notes[count - 1].seconds + 5.0f;
+	if (count == 0) {
+		return false;
 	}
 
-	if (!soundFilename.empty()) {
-		if (buffer.loadFromFile(soundFilename)) {
-			sound.setBuffer(buffer);
-			sound.play();
-		}
+	duration = notes[count - 1].seconds + 5.0f;
+
+	return true;
+}
+
+bool Song::play()
+{
+	if (soundFilename.empty()) {
+		return false;
+	}
+	if (buffer.loadFromFile(soundFilename)) {
+		sound.setBuffer(buffer);
+		sound.play();
 	}
 	return true;
 }
