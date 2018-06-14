@@ -11,6 +11,9 @@
 #define BASELINE_HEIGHT     3
 #define VLINE_WIDTH        10
 
+#define LEFT_MARGIN    50
+#define CENTER_MARGIN 100
+
 class Coord
 {
 public:

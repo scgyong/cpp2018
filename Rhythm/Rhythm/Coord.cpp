@@ -2,7 +2,11 @@
 
 float Coord::x(int line)
 {
-	return line * 60;
+	float x = LEFT_MARGIN + line * NOTE_WIDTH;
+	if (line >= 4) {
+		x += CENTER_MARGIN;
+	}
+	return x;
 }
 
 float Coord::y(float seconds)
