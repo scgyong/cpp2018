@@ -19,6 +19,18 @@ TitleScene::TitleScene(RenderWindow &window)
 	// init songs
 	selectedSongIndex = 0;
 	Song::loadSongs();
+
+	titleText.setFont(Fonts::fonts.def);
+	//text.setScale(2.f, 2.f);
+	titleText.setPosition(100.f, 100.f);
+	titleText.setFillColor(Color::White);
+
+	if (Song::songs.size() > 0) {
+		Song &song = *Song::songs[selectedSongIndex];
+		titleText.setString(song.title);
+	} else {
+		titleText.setString("No songs found in songs/ folder");
+	}
 }
 
 
@@ -35,6 +47,11 @@ void TitleScene::update()
 {
 	if (Keyboard::isKeyPressed(Keyboard::Key::Space)) {
 
+		int count = Song::songs.size();
+		if (count == 0) {
+			return;
+		}
+
 		Song &song = *Song::songs[selectedSongIndex];
 		GameScene *scene = new GameScene(window, song);
 		changeScene(scene);
@@ -44,18 +61,10 @@ void TitleScene::update()
 
 void TitleScene::draw()
 {
-	Song &song = *Song::songs[selectedSongIndex];
 
 	window.clear(Color::Blue);
-	Text text;
-	text.setString(song.title);
-	text.setFont(Fonts::fonts.def);
-	//text.setScale(2.f, 2.f);
-	text.setPosition(100.f, 100.f);
-	text.setFillColor(Color::White);
 
-
-	window.draw(text);
+	window.draw(titleText);
 }
 
 void TitleScene::handleEvent(Event & event)
@@ -76,5 +85,11 @@ void TitleScene::handleEvent(Event & event)
 		return;
 	}
 	int count = Song::songs.size();
+	if (count == 0) {
+		return;
+	}
 	selectedSongIndex = (selectedSongIndex + delta + count) % count;
+
+	Song &song = *Song::songs[selectedSongIndex];
+	titleText.setString(song.title);
 }

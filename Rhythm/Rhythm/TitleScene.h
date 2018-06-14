@@ -11,6 +11,7 @@ class TitleScene :
 	//vector<Song *> songs;
 	//void loadSongs();
 	int selectedSongIndex;
+	Text titleText;
 public:
 	TitleScene(RenderWindow &window);
 	virtual ~TitleScene();
