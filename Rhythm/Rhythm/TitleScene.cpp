@@ -2,6 +2,7 @@
 #include "GameScene.h"
 #include "Song.h"
 #include "DirUtil.h"
+#include "Fonts.h"
 
 #if 0
 void TitleScene::loadSongs()
@@ -16,6 +17,7 @@ TitleScene::TitleScene(RenderWindow &window)
 	: Scene(window)
 {
 	// init songs
+	selectedSongIndex = 0;
 	Song::loadSongs();
 }
 
@@ -32,9 +34,8 @@ TitleScene::~TitleScene()
 void TitleScene::update()
 {
 	if (Keyboard::isKeyPressed(Keyboard::Key::Space)) {
-		int index = 0;
 
-		Song &song = *Song::songs[index];
+		Song &song = *Song::songs[selectedSongIndex];
 		GameScene *scene = new GameScene(window, song);
 		changeScene(scene);
 	}
@@ -43,11 +44,37 @@ void TitleScene::update()
 
 void TitleScene::draw()
 {
+	Song &song = *Song::songs[selectedSongIndex];
+
 	window.clear(Color::Blue);
 	Text text;
-	text.setString("Rhythm Game");
+	text.setString(song.title);
+	text.setFont(Fonts::fonts.def);
 	//text.setScale(2.f, 2.f);
 	text.setPosition(100.f, 100.f);
 	text.setFillColor(Color::White);
+
+
 	window.draw(text);
+}
+
+void TitleScene::handleEvent(Event & event)
+{
+	if (event.type != Event::KeyPressed) {
+		return;
+	}
+
+	int delta = 0;
+	switch (event.key.code) {
+	case Keyboard::Left:
+		delta = -1;
+		break;
+	case Keyboard::Right:
+		delta = 1;
+		break;
+	default:
+		return;
+	}
+	int count = Song::songs.size();
+	selectedSongIndex = (selectedSongIndex + delta + count) % count;
 }

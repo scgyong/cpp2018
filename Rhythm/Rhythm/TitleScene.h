@@ -10,11 +10,13 @@ class TitleScene :
 {
 	//vector<Song *> songs;
 	//void loadSongs();
+	int selectedSongIndex;
 public:
 	TitleScene(RenderWindow &window);
 	virtual ~TitleScene();
 
 	virtual void update();
 	virtual void draw();
+	virtual void handleEvent(Event &event);
 };
 
