@@ -148,6 +148,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Coord.cpp" />
     <ClCompile Include="DirUtil.cpp" />
     <ClCompile Include="Fonts.cpp" />
     <ClCompile Include="GameScene.cpp" />
@@ -158,6 +159,7 @@
     <ClCompile Include="TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Coord.h" />
     <ClInclude Include="DirUtil.h" />
     <ClInclude Include="Fonts.h" />
     <ClInclude Include="GameScene.h" />

@@ -1,8 +1,6 @@
 #include "GameScene.h"
 #include "TitleScene.h"
-
-#define PIXELS_PER_SECOND 500
-#define BASE_Y 500
+#include "Coord.h"
 
 GameScene::GameScene(RenderWindow &window, Song &song)
 	: Scene(window), song(song)
@@ -59,20 +57,29 @@ void GameScene::draw()
 	auto wsize = window.getSize();
 
 	RectangleShape vbar(
-		Vector2f(60.0f, wsize.y)
+		Vector2f(60.0f, (float)wsize.y)
 	);
 	vbar.setFillColor(Color(0xFFFFFF3f));
 
+	RectangleShape vline(
+		Vector2f(10.0f, (float)wsize.y)
+	);
+	vline.setFillColor(Color(0x3F3F7f7F));
+
 	for (int i = 0; i < 6; i++) {
+		float x = Coord::x(i + 1);
+		vline.setPosition(x - VLINE_WIDTH / 2, 0);
+		window.draw(vline);
+
 		if (presseds[i]) {
-			vbar.setPosition(i * 60 + 30, 0);
+			vbar.setPosition(x - NOTE_WIDTH / 2, 0);
 			window.draw(vbar);
 		}
 	}
 
 
-	CircleShape circle(20.0f);
-	circle.setOrigin(20, 20);
+	CircleShape circle(NOTE_RADIUS);
+	circle.setOrigin(NOTE_RADIUS, NOTE_RADIUS);
 	circle.setFillColor(Color::White);
 
 	float now = (float)clock.getElapsedTime().asSeconds();
@@ -80,16 +87,18 @@ void GameScene::draw()
 		if (note.pressed) {
 			continue;
 		}
-		float x = (float)(60.0 * note.position);
-		float y = PIXELS_PER_SECOND * (now - note.seconds) + BASE_Y;
+		float x = Coord::x(note.position);
+		float y = Coord::y(now - note.seconds);
 		circle.setPosition(x, y);
 		window.draw(circle);
 	}
 
+	float y = Coord::y(0);
+
 	RectangleShape line(
-		Vector2f((float)wsize.x, 3.0f)
+		Vector2f((float)wsize.x, BASELINE_HEIGHT)
 	);
-	line.setPosition(0, BASE_Y - 1);
+	line.setPosition(0, y - BASELINE_HEIGHT / 2);
 	line.setFillColor(Color::Yellow);
 	window.draw(line);
 }

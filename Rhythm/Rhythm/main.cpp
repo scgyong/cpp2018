@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "TitleScene.h"
 #include "main.h"
+#include "Coord.h"
 
 using namespace sf;
 
