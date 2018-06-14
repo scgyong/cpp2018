@@ -1,6 +1,7 @@
 #include "GameScene.h"
 #include "TitleScene.h"
 #include "Coord.h"
+#include "Fonts.h"
 
 GameScene::GameScene(RenderWindow &window, Song &song)
 	: Scene(window), song(song)
@@ -11,6 +12,19 @@ GameScene::GameScene(RenderWindow &window, Song &song)
 	song_2015182031_1.txt  song_2017182039_1.txt
 	*/
 	//song.load("song_1.txt");
+
+	scoreText.setFont(Fonts::fonts.def);
+	scoreText.setPosition(SCORETEXT_X, SCORETEXT_Y);
+	scoreText.setFillColor(Color::White);
+	scoreText.setString("Score: 0");
+
+	judgeText.setFont(Fonts::fonts.def);
+	judgeText.setScale(3.0f, 3.0f);
+	judgeText.setPosition(JUDGETEXT_X, JUDGETEXT_Y);
+	judgeText.setFillColor(Color::Green);
+	judgeText.setString("");
+
+
 	song.play();
 	clock.restart();
 }
@@ -22,12 +36,16 @@ GameScene::~GameScene()
 
 void GameScene::update()
 {
+	float time = (float)clock.getElapsedTime().asSeconds();
+	if (time > judgeDisappearTime) {
+		judgeText.setString("");
+	}
 	//if (Keyboard::isKeyPressed(Keyboard::Key::Escape)) {
 	//	goBackToTitle();
 	//	return;
 	//}
 
-	if (clock.getElapsedTime().asSeconds() > song.duration) {
+	if (time > song.duration) {
 		goBackToTitle();
 		return;
 	}
@@ -47,12 +65,6 @@ void GameScene::update()
 void GameScene::draw()
 {
 	window.clear(Color::Red);
-	//Text text;
-	//text.setString("In Game");
-	////text.setScale(2.f, 2.f);
-	//text.setPosition(100.f, 100.f);
-	//text.setFillColor(Color::White);
-	//window.draw(text);
 
 	auto wsize = window.getSize();
 
@@ -101,6 +113,9 @@ void GameScene::draw()
 	line.setPosition(0, y - BASELINE_HEIGHT / 2);
 	line.setFillColor(Color::Yellow);
 	window.draw(line);
+
+	window.draw(scoreText);
+	window.draw(judgeText);
 }
 
 void GameScene::handleEvent(Event & event)
@@ -144,5 +159,40 @@ void GameScene::goBackToTitle()
 void GameScene::handleInput(int position)
 {
 	float time = (float)clock.getElapsedTime().asSeconds();
-	song.handleInput(position, time);
+	auto result = song.handleInput(position, time);
+	switch (result) {
+	case Song::PERFECT:
+		setJudgeText("PERFECT");
+		addScore(200);
+		break;
+	case Song::GOOD:
+		setJudgeText("GOOD");
+		addScore(100);
+		break;
+	case Song::BAD:
+		setJudgeText("BAD");
+		addScore(50);
+		break;
+	case Song::NOTHING:
+		addScore(-1);
+		break;
+	}
+}
+
+void GameScene::setJudgeText(const char * text)
+{
+	judgeText.setString(text);
+	float time = (float)clock.getElapsedTime().asSeconds();
+	judgeDisappearTime = time + 1.0f;
+}
+
+void GameScene::addScore(int score)
+{
+	int newScore = this->score + score;
+	if (newScore < 0) {
+		newScore = 0;
+	}
+	this->score = newScore;
+	string text = "Score: " + to_string(newScore);
+	scoreText.setString(text);
 }

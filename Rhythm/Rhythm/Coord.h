@@ -11,8 +11,14 @@
 #define BASELINE_HEIGHT     3
 #define VLINE_WIDTH        10
 
-#define LEFT_MARGIN    50
-#define CENTER_MARGIN 100
+#define LEFT_MARGIN   30
+#define CENTER_MARGIN 50
+
+#define SCORETEXT_X 500
+#define SCORETEXT_Y  80
+
+#define JUDGETEXT_X 100
+#define JUDGETEXT_Y 150
 
 class Coord
 {
